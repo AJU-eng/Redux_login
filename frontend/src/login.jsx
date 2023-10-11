@@ -19,6 +19,7 @@ function Login() {
     if (data==="logined") {
       // history.push("/home")
       nav('/home')
+      window.location.reload()
     }else if(data=="ok")
     {
       nav("/Admin")
