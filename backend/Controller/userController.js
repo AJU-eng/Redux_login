@@ -15,14 +15,20 @@ const images=req.file.filename
  const {name,email,password}=req.body
 
   const data = await userModel.create({ name, email, password,image:images});
-  // console.log(data);
-  const token = jwt.sign({ user_id: data._id }, process.env.SECRET_KEY);
+  console.log(data);
+  // const token = jwt.sign({ user_id: data._id }, process.env.SECRET_KEY);
 
-  res 
-    .cookie("Login_token", token, {
+  try {
+    const token = jwt.sign({ user_id: data._id }, process.env.SECRET_KEY);
+  
+    res.cookie("Login_token", token, {
       httpOnly: true,
-    })
-    .send("logined");
+    }).send("logined");
+  } catch (error) {
+    console.error("Error setting cookie:", error);
+    res.status(500).send("Internal Server Error");
+  }
+  
   console.log(req.cookies);
   // res.status(201).send({token,data})
 };

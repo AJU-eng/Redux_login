@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import {
   DeleteUser,
   admin_logout,
@@ -77,9 +79,20 @@ const Table = () => {
 
                   <button
                     className="bg-red-600 text-white py-1 px-3 rounded-lg ml-2"
-                    onClick={() => {
-                      dispatch(DeleteUser(item._id));
-                    }}
+                    onClick={()=> confirmAlert({
+                      title: 'Confirm to submit',
+                      message: 'Are you sure to do this.',
+                      buttons: [
+                        {
+                          label: 'Yes',
+                          onClick: () => dispatch(DeleteUser(item._id))
+                        },
+                        {
+                          label: 'No',
+                          onClick: () => nav('/Admin')
+                        }
+                      ]
+                    })}
                   >
                     Delete
                   </button>
