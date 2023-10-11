@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./login";
 import Homes from "./homes";
 import Register from "./home";
@@ -34,7 +34,7 @@ function App() {
           <Route path="/admin" element={adminAuth && <Admin />} />
           <Route path="/update/:id" element={adminAuth && <Modal />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Homes />} />
+          <Route path="/home" element={authenticated ? <Homes /> : <Navigate to={'/'} />} />
           <Route path="*" element={<h1>404</h1>}/>
           <Route path="/" element={authenticated ? <Homes /> : <Login />} />
         </Routes>

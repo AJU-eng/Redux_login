@@ -146,9 +146,10 @@ export const register = (formData) => {
     // Make a POST request to the backend API with the FormData object as the body
     axios
       .post("http://localhost:3000/user/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data" }, withCredentials:true
       })
       .then((res) => {
+        console.log(res.data);
         const datas = res.data;
         dispatch(login_sucess(datas));
       })
